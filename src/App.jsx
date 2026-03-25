@@ -202,9 +202,9 @@ function App() {
 
           {/* BUTTONS */}
           <div className="flex flex-wrap gap-4 md:gap-5 mt-8 max-w-lg">
-            <button className="px-8 py-3 bg-gradient-to-r from-[#ff4d6d] to-[#ff758f] text-white rounded-full shadow-[0_0_15px_rgba(255,77,109,0.5)] hover:scale-105 hover:shadow-[0_0_25px_rgba(255,77,109,0.8)] transition duration-300 font-semibold tracking-wide text-center">
+            <a href="#projects" className="px-8 py-3 bg-gradient-to-r from-[#ff4d6d] to-[#ff758f] text-white rounded-full shadow-[0_0_15px_rgba(255,77,109,0.5)] hover:scale-105 hover:shadow-[0_0_25px_rgba(255,77,109,0.8)] transition duration-300 font-semibold tracking-wide text-center flex items-center justify-center">
               View Work
-            </button>
+            </a>
             <button className="px-8 py-3 border-2 border-[#ff4d6d] text-[#ff4d6d] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d] hover:text-white hover:shadow-[0_0_15px_rgba(255,77,109,0.5)] transition duration-300 text-center">
               Contact Me
             </button>
