@@ -223,11 +223,11 @@ function App() {
           className="hero-col hero-center"
         >
           <div className="photo-container">
-            <img src="/src/assets/avatar.png" alt="Developer Avatar" className="profile-photo" />
+            <img src="/avatar.png" alt="Developer Avatar" className="profile-photo" />
           </div>
         </motion.div>
 
-        {/* 🔥 RIGHT SIDE: ROLE EMPHASIS */}
+        {/* 🔥 RIGHT SIDE: ROLE EMPHASIS */
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -260,7 +260,7 @@ function App() {
               <div className="relative w-64 h-80 md:w-80 md:h-[400px] rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#1a0505] to-[#2a0f0f] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.6)] group-hover:shadow-[0_0_40px_rgba(255,77,109,0.3)] transition-all duration-700 ease-out transform group-hover:-rotate-3 group-hover:scale-105 animate-[float_6s_ease-in-out_infinite]">
                 {/* Subtle Inner Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#120606] via-transparent to-[#ff4d6d]/10 z-10 transition-opacity duration-500 group-hover:opacity-50"></div>
-                <img src="/src/assets/avatar.png" alt="Jahanvi Sharma" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 z-0 scale-105 group-hover:scale-110" />
+                <img src="/avatar.png" alt="Jahanvi Sharma" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 z-0 scale-105 group-hover:scale-110" />
               </div>
 
               {/* Floating Tag */}
