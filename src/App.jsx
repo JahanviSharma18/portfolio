@@ -150,7 +150,7 @@ function App() {
           </div>
 
           <div className="flex items-center gap-3 md:gap-4">
-            <a href="/JanviCV.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
+            <a href="/JahanviCV.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
               Resume
               <svg className="w-3 h-3 group-hover/resume:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             </a>
@@ -208,7 +208,7 @@ function App() {
             <button className="px-8 py-3 border-2 border-[#ff4d6d] text-[#ff4d6d] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d] hover:text-white hover:shadow-[0_0_15px_rgba(255,77,109,0.5)] transition duration-300 text-center">
               Contact Me
             </button>
-            <a href="/JanviCV.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-8 py-3 bg-[#1a0505]/60 backdrop-blur-md border border-[#ff4d6d]/30 text-[#ffb3c6] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d]/20 hover:border-[#ff4d6d] hover:text-white shadow-[0_0_10px_rgba(255,77,109,0.1)] hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 group/hero-resume">
+            <a href="/JahanviCV.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-8 py-3 bg-[#1a0505]/60 backdrop-blur-md border border-[#ff4d6d]/30 text-[#ffb3c6] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d]/20 hover:border-[#ff4d6d] hover:text-white shadow-[0_0_10px_rgba(255,77,109,0.1)] hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 group/hero-resume">
               Download Resume
               <svg className="w-5 h-5 group-hover/hero-resume:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             </a>
