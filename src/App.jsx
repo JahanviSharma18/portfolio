@@ -150,7 +150,7 @@ function App() {
           </div>
 
           <div className="flex items-center gap-3 md:gap-4">
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
+            <a href="/JahanviCV.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
               Resume
               <svg className="w-3 h-3 group-hover/resume:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             </a>
@@ -1523,7 +1523,7 @@ function App() {
             </h3>
 
             <p className="text-gray-400 text-sm md:text-base mb-8 leading-relaxed max-w-md">
-              Whether you have a specific project in mind, an exciting opportunity, or just want to chat about tech, I’m always open to connect.<br/><br/><span className="text-gray-300 font-medium">Prefer a quick overview? <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[#ff4d6d] hover:text-white underline decoration-[#ff4d6d]/50 underline-offset-4 transition-colors font-bold">Download my resume.</a></span>
+              Whether you have a specific project in mind, an exciting opportunity, or just want to chat about tech, I’m always open to connect.<br/><br/><span className="text-gray-300 font-medium">Prefer a quick overview? <a href="/JahanviCV.pdf" target="_blank" rel="noopener noreferrer" className="text-[#ff4d6d] hover:text-white underline decoration-[#ff4d6d]/50 underline-offset-4 transition-colors font-bold">Download my resume.</a></span>
             </p>
 
             <div className="flex flex-col gap-5">
