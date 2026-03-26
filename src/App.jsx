@@ -326,20 +326,19 @@ function App() {
             <h2 className="font-['Great_Vibes'] text-5xl md:text-[4.5rem] lg:text-7xl text-[#ff4d6d] -mt-2 md:-mt-4 ml-2 md:ml-4 tracking-normal drop-shadow-[0_0_15px_rgba(255,77,109,0.5)]">Sharma</h2>
           </div>
 
-          <p className="text-gray-300 text-lg md:text-xl max-w-lg leading-relaxed font-light mt-2">
-            I build aesthetic and functional digital experiences.
-          </p>
-          
+        <p className="text-gray-300 text-lg md:text-xl max-w-lg leading-relaxed font-light mt-2">
+  Building seamless web experiences, from concept to deployment.
+</p>
           <div className="text-[#ffb3c6] font-medium text-lg md:text-xl h-8 mb-6">
             <TypeAnimation
-              sequence={[
-                "Creative Developer ✨", 1500,
-                "Building real-world products 🚀", 1500,
-                "Blending design + logic 💻", 1500,
-              ]}
-              speed={50}
-              repeat={Infinity}
-            />
+  sequence={[
+    "Creative Full Stack Developer", 1500,
+    "Crafting modern web experiences", 1500,
+    "Turning ideas into production-ready systems", 1500,
+  ]}
+  speed={50}
+  repeat={Infinity}
+/>
           </div>
 
           {/* BUTTONS */}
