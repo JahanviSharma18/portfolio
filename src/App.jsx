@@ -259,7 +259,7 @@ function App() {
           {/* Logo (Left Side) */}
           <div className="flex-1 flex justify-start">
             <a href="#home" className="text-xl md:text-2xl font-extrabold tracking-wider bg-gradient-to-r from-[#ff4d6d] to-[#ff9aa2] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,77,109,0.5)] cursor-pointer hover:scale-105 transition-transform duration-300">
-              Janvi<span className="text-white">.dev</span>
+              JS<span className="text-white">.</span>
             </a>
           </div>
 
@@ -288,7 +288,7 @@ function App() {
 
           {/* Action Buttons (Right Side) */}
           <div className="flex-1 flex justify-end items-center gap-4">
-            <a href="/JahanviCV.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-2 px-5 py-2 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-2 px-5 py-2 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
               Resume
               <svg className="w-3.5 h-3.5 group-hover/resume:-translate-y-0.5 group-hover/resume:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
             </a>
@@ -1373,12 +1373,12 @@ function App() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d]/60"></span> Jul 2025
                     </span>
                   </div>
-                  <button className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
+                  <a href="/Privacy.pdf" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       View Credential
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1427,12 +1427,12 @@ function App() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d]/60"></span> Jul 2025
                     </span>
                   </div>
-                  <button className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
+                  <a href="/chatgptEssentials.pdf" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       View Credential
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1486,12 +1486,12 @@ function App() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d]/60"></span> Completed
                     </span>
                   </div>
-                  <button className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
+                  <a href="/hardware.pdf" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       View Credential
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1540,12 +1540,12 @@ function App() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d]/60"></span> Received
                     </span>
                   </div>
-                  <button className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
+                  <a href="/MasterAI.pdf" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       View Credential
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1602,12 +1602,12 @@ function App() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d6d]/60"></span> Dec 2023
                     </span>
                   </div>
-                  <button className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
+                  <a href="/responsiveWebDesign.png" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-semibold text-gray-300 group-hover:bg-[#ff4d6d] group-hover:border-[#ff4d6d] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 overflow-hidden relative">
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       View Credential
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
