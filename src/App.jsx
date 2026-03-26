@@ -17,7 +17,7 @@ const projects = [
     techStack: ["MongoDB", "Express", "React", "Node.js", "Tailwind"],
     demoLink: "https://reportit-ten.vercel.app/",
     githubLink: "https://github.com/JahanviSharma18",
-    image: "/src/assets/reportit_preview.png",
+    image: "/reportit_preview.png",
     type: "MERN App"
   },
   {
@@ -31,7 +31,7 @@ const projects = [
     techStack: ["React", "Node.js", "MongoDB", "Tailwind"],
     demoLink: "https://booknest.gt.tc/",
     githubLink: "https://github.com/JahanviSharma18",
-    image: "/src/assets/booknest_preview.png",
+    image: "/booknest_preview.png",
     type: "Web Platform"
   }
 ];
@@ -365,7 +365,7 @@ function App() {
           className="relative z-10 w-full lg:w-1/2 mt-16 lg:mt-0 flex justify-center lg:justify-end items-center perspective-[1000px]"
         >
           <div className="photo-container">
-            <img src="/src/assets/avatar.png" alt="Developer Avatar" className="profile-photo" />
+            <img src="/avatar.png" alt="Developer Avatar" className="profile-photo" />
           </div>
         </motion.div>
 
