@@ -1,7 +1,7 @@
 
 import { TypeAnimation } from 'react-type-animation';
 // eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import './Hero.css';
 
@@ -15,9 +15,10 @@ const projects = [
     impact: "Streamlines resolution workflows by 40%.",
     features: ["JWT Authentication", "Real-time tracking", "Role-based access", "Scalable backend"],
     techStack: ["MongoDB", "Express", "React", "Node.js", "Tailwind"],
-    demoLink: "#",
+    demoLink: "https://reportit-ten.vercel.app/",
     githubLink: "https://github.com/JahanviSharma18",
-    imagePlaceholder: "ReportIT Preview"
+    image: "/src/assets/reportit_preview.png",
+    type: "MERN App"
   },
   {
     id: 2,
@@ -28,14 +29,75 @@ const projects = [
     impact: "Digitalized 100% of lending operations.",
     features: ["Secure Authentication", "Admin Dashboard", "Inventory Tracking", "Responsive UI"],
     techStack: ["React", "Node.js", "MongoDB", "Tailwind"],
-    demoLink: "#",
+    demoLink: "https://booknest.gt.tc/",
     githubLink: "https://github.com/JahanviSharma18",
-    imagePlaceholder: "BookNest Preview"
+    image: "/src/assets/booknest_preview.png",
+    type: "Web Platform"
   }
 ];
+const IntroAnimation = ({ onComplete }) => {
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    // Generate burst particles
+    const newParticles = Array.from({ length: 40 }).map((_, i) => ({
+      id: i,
+      angle: Math.random() * Math.PI * 2,
+      velocity: 60 + Math.random() * 200,
+      size: 2 + Math.random() * 5,
+      opacity: 0.5 + Math.random() * 0.5,
+      delay: Math.random() * 0.2
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      transition={{ duration: 0.8, delay: 1.5, ease: "easeInOut" }}
+      onAnimationComplete={onComplete}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0202] overflow-hidden pointer-events-none"
+    >
+      {/* Central Glowing Orb */}
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: [0, 1.2, 0], opacity: [0, 1, 0] }}
+        transition={{ duration: 1.2, ease: "easeIn" }}
+        className="absolute w-6 h-6 md:w-10 md:h-10 bg-gradient-to-tr from-[#ff4d6d] to-[#ffb3c6] rounded-full blur-[4px] drop-shadow-[0_0_20px_rgba(255,77,109,1)]"
+      />
+
+      {/* Burst Particles */}
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
+          animate={{
+            x: Math.cos(p.angle) * p.velocity,
+            y: Math.sin(p.angle) * p.velocity,
+            scale: [0, 1, 0],
+            opacity: [0, p.opacity, 0],
+          }}
+          transition={{
+            duration: 1 + Math.random() * 0.5,
+            delay: 0.8 + p.delay, // Burst slightly before the central orb disappears
+            ease: "easeOut",
+          }}
+          className="absolute rounded-full bg-[#ff4d6d]"
+          style={{
+            width: p.size,
+            height: p.size,
+            boxShadow: `0 0 ${p.size * 2}px rgba(255,77,109,0.8)`,
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+};
 
 function App() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [showIntro, setShowIntro] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -81,6 +143,16 @@ function App() {
   return (
 
     <div className="bg-[#1a0a0a] text-cream min-h-screen relative overflow-hidden">
+      <AnimatePresence>
+        {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+      </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}
+        className="relative z-0"
+      >
 
       {/* 🌈 BACKGROUND LAYERS */}
       <div className="absolute inset-0 -z-10">
@@ -155,40 +227,43 @@ function App() {
               <svg className="w-3 h-3 group-hover/resume:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             </a>
             <button className="md:hidden text-white p-2">
-            <svg className="w-6 h-6 drop-shadow-[0_0_8px_rgba(255,20,147,0.6)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-          </button>
+              <svg className="w-6 h-6 drop-shadow-[0_0_8px_rgba(255,20,147,0.6)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
           </div>
         </nav>
       </div>
 
 
       {/* 🚀 HERO SECTION */}
-      <motion.section id="home" className="hero-section">
+      <motion.section id="home" className="relative flex flex-col lg:flex-row items-center justify-between min-h-screen px-6 md:px-12 lg:px-24 py-24 md:py-32 overflow-hidden z-10 w-full max-w-[90rem] mx-auto">
+        
         {/* OVERSIZED PARALLAX BACKGROUND TEXT */}
         <div
-          className="bg-text-portfolio"
-          style={{ transform: `translate(calc(-50% + ${-position.x * 0.05}px), calc(-50% + ${-position.y * 0.05}px))` }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-['Playfair_Display'] italic text-[15vw] lg:text-[12rem] text-white/[0.04] whitespace-nowrap pointer-events-none z-0 tracking-wider"
+          style={{ transform: `translate(calc(-50% + ${-position.x * 0.02}px), calc(-50% + ${-position.y * 0.02}px))` }}
         >
           PORTFOLIO
         </div>
 
-        {/* 🔥 LEFT SIDE */}
+        {/* 🔥 LEFT SIDE (Text Content) */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          className="hero-col hero-left"
+           initial={{ opacity: 0, y: 30 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 1, ease: "easeOut" }}
+           className="relative z-10 flex flex-col items-start gap-4 lg:gap-5 w-full lg:w-1/2 mt-10 lg:mt-0"
         >
-          <div className="intro-text">Hi, I am</div>
-          <div>
-            <div className="name-first">JAHANVI</div>
-            <div className="name-last">Sharma</div>
+          <div className="text-[#ffb3c6] text-xl md:text-2xl font-semibold tracking-wide">Hi, I am</div>
+          
+          <div className="flex flex-col mb-2">
+            <h1 className="text-[4rem] sm:text-6xl md:text-[5.5rem] lg:text-8xl font-black text-white leading-none tracking-tight">JAHANVI</h1>
+            <h2 className="font-['Great_Vibes'] text-5xl md:text-[4.5rem] lg:text-7xl text-[#ff4d6d] -mt-2 md:-mt-4 ml-2 md:ml-4 tracking-normal drop-shadow-[0_0_15px_rgba(255,77,109,0.5)]">Sharma</h2>
           </div>
 
-          <div className="role-description">
+          <p className="text-gray-300 text-lg md:text-xl max-w-lg leading-relaxed font-light mt-2">
             I build aesthetic and functional digital experiences.
-          </div>
-          <div className="typewriter-text mt-4 text-xl">
+          </p>
+          
+          <div className="text-[#ffb3c6] font-medium text-lg md:text-xl h-8 mb-6">
             <TypeAnimation
               sequence={[
                 "Creative Developer ✨", 1500,
@@ -201,44 +276,47 @@ function App() {
           </div>
 
           {/* BUTTONS */}
-          <div className="flex flex-wrap gap-4 md:gap-5 mt-8 max-w-lg">
-            <a href="#projects" className="px-8 py-3 bg-gradient-to-r from-[#ff4d6d] to-[#ff758f] text-white rounded-full shadow-[0_0_15px_rgba(255,77,109,0.5)] hover:scale-105 hover:shadow-[0_0_25px_rgba(255,77,109,0.8)] transition duration-300 font-semibold tracking-wide text-center flex items-center justify-center">
+          <div className="flex flex-wrap items-center gap-4 md:gap-5 w-full">
+            <a href="#projects" className="px-8 py-3.5 bg-gradient-to-r from-[#ff4d6d] to-[#ff758f] text-white rounded-full shadow-[0_0_15px_rgba(255,77,109,0.4)] hover:scale-105 hover:shadow-[0_0_25px_rgba(255,77,109,0.7)] transition duration-300 font-semibold tracking-wide text-center flex items-center justify-center">
               View Work
             </a>
-            <button className="px-8 py-3 border-2 border-[#ff4d6d] text-[#ff4d6d] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d] hover:text-white hover:shadow-[0_0_15px_rgba(255,77,109,0.5)] transition duration-300 text-center">
+            <button className="px-8 py-3.5 border border-[#ff4d6d]/40 text-[#ffb3c6] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d]/10 hover:border-[#ff4d6d] hover:text-white transition duration-300 text-center">
               Contact Me
             </button>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-8 py-3 bg-[#1a0505]/60 backdrop-blur-md border border-[#ff4d6d]/30 text-[#ffb3c6] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d]/20 hover:border-[#ff4d6d] hover:text-white shadow-[0_0_10px_rgba(255,77,109,0.1)] hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 group/hero-resume">
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-8 py-3.5 bg-[#1a0505]/40 backdrop-blur-md border border-white/10 text-gray-300 font-semibold tracking-wide rounded-full hover:bg-white/10 hover:border-white/30 hover:text-white shadow-[0_0_10px_rgba(0,0,0,0.5)] transition-all duration-300 group/hero-resume">
               Download Resume
               <svg className="w-5 h-5 group-hover/hero-resume:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             </a>
           </div>
         </motion.div>
 
-        {/* 🔥 CENTER: VISUAL FOCUS */}
+        {/* 🔥 RIGHT SIDE (Image Focus) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2 }}
-          className="hero-col hero-center"
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+          className="relative z-10 w-full lg:w-1/2 mt-16 lg:mt-0 flex justify-center lg:justify-end items-center perspective-[1000px]"
         >
-          <div className="photo-container">
-            <img src="/src/assets/avatar.png" alt="Developer Avatar" className="profile-photo" />
+          {/* Subtle Glow Behind Image */}
+          <div className="absolute top-1/2 left-1/2 lg:left-[60%] -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-gradient-to-tr from-[#ff4d6d]/15 to-[#800000]/15 blur-[80px] md:blur-[120px] rounded-full z-0 pointer-events-none"></div>
+          
+          {/* Image Container */}
+          <div className="relative w-[18rem] sm:w-[24rem] md:w-[32rem] lg:w-[42rem] z-10 transition-transform duration-700 ease-out hover:-translate-y-2 hover:scale-[1.02]">
+            <img src="/src/assets/avatar2.png" alt="Jahanvi Sharma" className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]" />
           </div>
         </motion.div>
 
-        {/* 🔥 RIGHT SIDE: ROLE EMPHASIS */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="hero-col hero-right"
+        {/* ADD NEW ELEMENT (BOTTOM RIGHT) */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+          className="absolute right-6 bottom-10 md:right-12 md:bottom-12 lg:right-16 lg:bottom-16 z-20 flex items-center gap-2 md:gap-3 opacity-60 pointer-events-none select-none"
         >
-          <div className="vertical-text-container">
-            <span className="vertical-text-outline">WEB</span>
-            <span className="vertical-text-filled">DEVELOPER</span>
-          </div>
+          <span className="text-lg md:text-2xl font-['Inter'] font-black tracking-[0.2em] md:tracking-[0.3em] text-transparent" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.7)' }}>WEB</span>
+          <span className="text-lg md:text-2xl font-['Inter'] font-black tracking-[0.2em] md:tracking-[0.3em] bg-clip-text text-transparent bg-gradient-to-r from-[#ff4d6d] to-[#ffb3c6]">DEVELOPER</span>
         </motion.div>
+
       </motion.section>
 
       <section id="about" className="scroll-mt-20 px-6 md:px-8 py-24 max-w-6xl mx-auto relative z-10 w-full">
@@ -263,17 +341,7 @@ function App() {
                 <img src="/src/assets/avatar.png" alt="Jahanvi Sharma" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 z-0 scale-105 group-hover:scale-110" />
               </div>
 
-              {/* Floating Tag */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="absolute -bottom-6 -left-6 md:-left-10 bg-[#1a0505]/80 backdrop-blur-xl border border-[#ff4d6d]/20 py-3 px-6 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-20 group-hover:-translate-y-2 transition-transform duration-500"
-              >
-                <span className="text-sm md:text-base font-semibold text-gray-200 tracking-wide flex items-center gap-2">
-                  Currently Building <span className="text-xl">🚀</span>
-                </span>
-              </motion.div>
+
             </div>
           </motion.div>
 
@@ -1023,18 +1091,49 @@ function App() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#ff4d6d]/0 via-[#ff4d6d]/5 to-[#800000]/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700 -z-10"></div>
 
               {/* IMAGE / VISUAL SIDE */}
-              <div className="w-full md:w-1/2 relative">
-                <div className="relative h-[300px] sm:h-[400px] w-full rounded-2xl overflow-hidden border border-white/10 bg-[#1a0505] shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_40px_rgba(255,77,109,0.2)] transition-all duration-500 group-hover:-translate-y-2">
-                  {/* Subtle Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#120606] via-transparent to-[#2a0f0f]/30 z-10 transition-opacity duration-300 group-hover:opacity-50"></div>
+              <div className="w-full md:w-1/2 relative group/preview perspective-[1000px]">
+                {/* Outer Glow behind the card */}
+                <div className="absolute inset-0 bg-[#ff4d6d]/0 group-hover/preview:bg-[#ff4d6d]/10 blur-[30px] rounded-2xl transition-all duration-500 -z-10"></div>
 
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-500 font-medium tracking-widest z-0 group-hover:scale-110 transition-transform duration-700">
-                    {project.imagePlaceholder}
+                <div className="relative h-[300px] sm:h-[400px] w-full rounded-2xl overflow-hidden border border-[#ff4d6d]/10 group-hover/preview:border-[#ff4d6d]/50 bg-[#1a0505] shadow-[0_10px_30px_rgba(0,0,0,0.6)] group-hover/preview:shadow-[0_15px_40px_rgba(255,77,109,0.3)] transition-all duration-700 ease-out transform group-hover/preview:-translate-y-2 group-hover/preview:rotate-x-2 group-hover/preview:-rotate-y-2">
+
+                  {/* Actual Project Image */}
+                  <img
+                    src={project.image}
+                    alt={`${project.title} Preview`}
+                    className="w-full h-full object-cover z-0 transition-transform duration-700 ease-out group-hover/preview:scale-110"
+                  />
+
+                  {/* Dark Semi-Transparent Overlay (Shows on Hover) */}
+                  <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover/preview:opacity-100 transition-opacity duration-500 z-10 flex flex-col items-center justify-center p-6 text-center">
+
+                    {/* Project Name and Type */}
+                    <div className="transform translate-y-8 group-hover/preview:translate-y-0 transition-transform duration-500 ease-out mb-6">
+                      <h4 className="text-3xl font-bold text-white mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{project.title}</h4>
+                      <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 rounded-full shadow-[0_0_10px_rgba(255,77,109,0.2)]">
+                        {project.type}
+                      </span>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-4 transform translate-y-8 group-hover/preview:translate-y-0 transition-transform duration-500 delay-75 ease-out">
+                      <a href={project.demoLink} className="px-5 py-2.5 bg-gradient-to-r from-[#ff4d6d] to-[#ff758f] text-white text-sm font-semibold rounded-full shadow-[0_0_15px_rgba(255,77,109,0.5)] hover:shadow-[0_0_25px_rgba(255,77,109,0.8)] hover:scale-105 transition duration-300 flex items-center gap-2">
+                        Live Demo
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                      </a>
+                      <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/20 hover:border-white/50 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-105 transition duration-300 flex items-center gap-2">
+                        Code
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"></path></svg>
+                      </a>
+                    </div>
                   </div>
+
+                  {/* Subtle Light Reflection (Gloss effect) */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                 </div>
 
                 {/* Decorative floating dots */}
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-[radial-gradient(circle,rgba(255,77,109,0.2)_1px,transparent_1px)] [background-size:8px_8px] rounded-lg -z-10 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-[radial-gradient(circle,rgba(255,77,109,0.3)_1px,transparent_1px)] [background-size:8px_8px] rounded-lg -z-20 opacity-40 group-hover/preview:opacity-100 transition-opacity duration-500 delay-100"></div>
               </div>
 
               {/* CONTENT SIDE */}
@@ -1049,43 +1148,52 @@ function App() {
                   {project.title}
                 </h3>
 
-                <div className="space-y-4 mb-6 relative">
+                <div className="space-y-5 mb-6 relative">
                   {/* Problem -> Solution */}
                   <div className="pl-4 border-l-2 border-white/10 group-hover:border-[#ff4d6d]/50 transition-colors duration-500">
                     <p className="text-gray-400 text-sm uppercase tracking-widest mb-1">The Problem</p>
-                    <p className="text-gray-300 leading-relaxed">{project.problem}</p>
+                    <p className="text-gray-300 leading-relaxed text-sm md:text-base">{project.problem}</p>
                   </div>
                   <div className="pl-4 border-l-2 border-white/10 group-hover:border-[#ff4d6d]/50 transition-colors duration-500">
                     <p className="text-gray-400 text-sm uppercase tracking-widest mb-1">The Solution</p>
-                    <p className="text-gray-300 leading-relaxed">{project.solution}</p>
+                    <p className="text-gray-300 leading-relaxed text-sm md:text-base">{project.solution}</p>
                   </div>
+
+                  {/* Key Features */}
+                  <div className="pl-4 border-l-2 border-white/10 group-hover:border-[#ff4d6d]/50 transition-colors duration-500">
+                    <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Key Features</p>
+                    <ul className="space-y-2">
+                      {project.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-gray-300 text-sm md:text-base">
+                          <svg className="w-5 h-5 text-[#ff4d6d] shrink-0 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"><path d="M5 13l4 4L19 7"></path></svg>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Impact */}
                   <div className="pt-2">
-                    <p className="text-[#ff9aa2] font-medium flex items-center gap-2">
+                    <p className="text-[#ff9aa2] font-medium flex items-center gap-2 text-sm md:text-base">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                       {project.impact}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-8">
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.techStack.map(tech => (
-                    <span key={tech} className="px-3 py-1 text-sm text-gray-400 bg-white/5 border border-white/5 rounded-full hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">
+                    <span key={tech} className="px-3 py-1 text-xs md:text-sm text-gray-400 bg-white/5 border border-white/5 rounded-full hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex gap-4">
-                  <a href={project.demoLink} className="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 bg-gradient-to-r from-[#ff4d6d] to-[#800000] rounded-full hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] hover:scale-105 overflow-hidden group/btn">
-                    <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
-                    <span className="relative flex items-center gap-2">
-                      Live Demo
-                      <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </span>
-                  </a>
-                  <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-[#ffb3c6] transition-all duration-300 border border-[#ff4d6d]/30 rounded-full hover:bg-[#ff4d6d]/10 hover:border-[#ff4d6d] hover:shadow-[0_0_15px_rgba(255,77,109,0.2)]">
-                    View Code
-                  </a>
+                {/* Helper Text */}
+                <div className="mt-2 text-white/40 text-xs md:text-sm tracking-wide font-light flex items-center gap-2 opacity-50">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                  Hover on the image to view live demo and code
                 </div>
               </div>
             </motion.div>
@@ -1523,7 +1631,7 @@ function App() {
             </h3>
 
             <p className="text-gray-400 text-sm md:text-base mb-8 leading-relaxed max-w-md">
-              Whether you have a specific project in mind, an exciting opportunity, or just want to chat about tech, I’m always open to connect.<br/><br/><span className="text-gray-300 font-medium">Prefer a quick overview? <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[#ff4d6d] hover:text-white underline decoration-[#ff4d6d]/50 underline-offset-4 transition-colors font-bold">Download my resume.</a></span>
+              Whether you have a specific project in mind, an exciting opportunity, or just want to chat about tech, I’m always open to connect.<br /><br /><span className="text-gray-300 font-medium">Prefer a quick overview? <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-[#ff4d6d] hover:text-white underline decoration-[#ff4d6d]/50 underline-offset-4 transition-colors font-bold">Download my resume.</a></span>
             </p>
 
             <div className="flex flex-col gap-5">
@@ -1670,6 +1778,7 @@ function App() {
 
 
 
+      </motion.div>
     </div>
   );
 }
