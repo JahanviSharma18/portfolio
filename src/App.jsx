@@ -35,18 +35,75 @@ const projects = [
     type: "Web Platform"
   }
 ];
+const AmbientParticles = () => {
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    // Generate more prominent particles for a vibrant ambient background
+    const newParticles = Array.from({ length: 45 }).map((_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 4 + 2, // 2px to 6px
+      duration: Math.random() * 15 + 15, // 15 - 30 seconds
+      opacity: Math.random() * 0.5 + 0.3, // 0.3 to 0.8 opacity
+      // Pre-calculate drift values
+      driftX: (Math.random() - 0.5) * 30,
+      driftY: -20 - Math.random() * 20,
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 2, delay: 2.2 }} // Fades in the entire layer right after Intro!
+      className="fixed inset-0 pointer-events-none overflow-hidden"
+    >
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{
+            x: `${p.x}vw`,
+            y: `${p.y}vh`,
+            opacity: p.opacity * 0.6,
+          }}
+          animate={{
+            x: [`${p.x}vw`, `${p.x + p.driftX}vw`], 
+            y: [`${p.y}vh`, `${p.y + p.driftY}vh`],
+            opacity: [p.opacity * 0.6, p.opacity, p.opacity * 0.6], 
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            repeatType: "mirror", 
+            ease: "easeInOut",
+          }}
+          className="absolute rounded-full bg-[#ff4d6d]" 
+          style={{
+            width: p.size,
+            height: p.size,
+            boxShadow: `0 0 ${p.size * 4}px rgba(255,77,109,0.8)`,
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+};
+
 const IntroAnimation = ({ onComplete }) => {
   const [particles, setParticles] = useState([]);
 
   useEffect(() => {
-    // Generate burst particles
-    const newParticles = Array.from({ length: 40 }).map((_, i) => ({
+    // Generate burst particles across the entire viewport
+    const newParticles = Array.from({ length: 80 }).map((_, i) => ({
       id: i,
       angle: Math.random() * Math.PI * 2,
-      velocity: 60 + Math.random() * 200,
-      size: 2 + Math.random() * 5,
-      opacity: 0.5 + Math.random() * 0.5,
-      delay: Math.random() * 0.2
+      velocity: 100 + Math.random() * (window.innerWidth > 768 ? 1200 : 700), // Dynamic spread based on screen size
+      size: 2 + Math.random() * 6,
+      opacity: 0.3 + Math.random() * 0.7,
+      delay: Math.random() * 0.4
     }));
     setParticles(newParticles);
   }, []);
@@ -55,16 +112,16 @@ const IntroAnimation = ({ onComplete }) => {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ duration: 0.8, delay: 1.5, ease: "easeInOut" }}
+      transition={{ duration: 1, delay: 2.2, ease: "easeInOut" }}
       onAnimationComplete={onComplete}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0202] overflow-hidden pointer-events-none"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden pointer-events-none"
     >
       {/* Central Glowing Orb */}
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: [0, 1.2, 0], opacity: [0, 1, 0] }}
+        animate={{ scale: [0, 1.5, 0], opacity: [0, 1, 0] }}
         transition={{ duration: 1.2, ease: "easeIn" }}
-        className="absolute w-6 h-6 md:w-10 md:h-10 bg-gradient-to-tr from-[#ff4d6d] to-[#ffb3c6] rounded-full blur-[4px] drop-shadow-[0_0_20px_rgba(255,77,109,1)]"
+        className="absolute w-8 h-8 md:w-12 md:h-12 bg-gradient-to-tr from-[#ff4d6d] to-[#ffb3c6] rounded-full blur-[6px] drop-shadow-[0_0_30px_rgba(255,77,109,1)]"
       />
 
       {/* Burst Particles */}
@@ -79,7 +136,7 @@ const IntroAnimation = ({ onComplete }) => {
             opacity: [0, p.opacity, 0],
           }}
           transition={{
-            duration: 1 + Math.random() * 0.5,
+            duration: 1.5 + Math.random() * 0.8,
             delay: 0.8 + p.delay, // Burst slightly before the central orb disappears
             ease: "easeOut",
           }}
@@ -150,7 +207,7 @@ function App() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}
+        transition={{ duration: 1, delay: 2.2, ease: "easeOut" }}
         className="relative z-0"
       >
 
@@ -165,6 +222,9 @@ function App() {
 
         {/* subtle purple/pink tone (bottom right) */}
         <div className="absolute w-[500px] h-[500px] bg-[#a855f7]/10 blur-[160px] bottom-[-150px] right-[-150px] rounded-full"></div>
+
+        {/* Ambient Floating Particles */}
+        <AmbientParticles />
 
       </div>
 
@@ -193,18 +253,23 @@ function App() {
       ></div>
 
       {/* 🔝 NAVBAR */}
-      <div className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none">
-        <nav className="pointer-events-auto flex items-center justify-between px-6 py-3 bg-[#1a0505]/70 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_4px_30px_rgba(255,20,147,0.15)] w-[90%] max-w-4xl transition-all duration-300">
-          <h1 className="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-[#ff4d6d] to-[#ff9aa2] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,77,109,0.5)]">
-            Janvi<span className="text-white">.dev</span>
-          </h1>
+      <div className="fixed top-8 md:top-10 left-0 right-0 z-[120] flex justify-center pointer-events-none px-6">
+        <nav className="pointer-events-auto flex items-center justify-between px-6 md:px-8 py-3 bg-[#1a0505]/60 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-[1100px] transition-all duration-300">
+          
+          {/* Logo (Left Side) */}
+          <div className="flex-1 flex justify-start">
+            <a href="#home" className="text-xl md:text-2xl font-extrabold tracking-wider bg-gradient-to-r from-[#ff4d6d] to-[#ff9aa2] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,77,109,0.5)] cursor-pointer hover:scale-105 transition-transform duration-300">
+              Janvi<span className="text-white">.dev</span>
+            </a>
+          </div>
 
-          <div className="hidden md:flex items-center gap-2 bg-black/40 p-1.5 rounded-full border border-white/5 shadow-inner">
+          {/* Navigation Links (Center) */}
+          <div className="hidden lg:flex flex-none items-center gap-1.5 bg-black/30 p-1.5 rounded-full border border-white/5 shadow-[inset_0_0_15px_rgba(0,0,0,0.5)]">
             {["home", "about", "education", "skills", "projects", "certifications", "contact"].map((section) => (
               <a
                 key={section}
                 href={`#${section}`}
-                className={`relative px-6 py-2 rounded-full text-sm font-semibold transition-colors duration-300 ${activeSection === section
+                className={`relative px-5 py-2 rounded-full text-[13px] font-bold tracking-wide transition-colors duration-300 ${activeSection === section
                   ? "text-white shadow-[0_0_15px_rgba(255,77,109,0.3)]"
                   : "text-gray-400 hover:text-[#ffb3c6]"
                   }`}
@@ -216,20 +281,22 @@ function App() {
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
-                <span className="capitalize relative z-10 tracking-wide">{section}</span>
+                <span className="capitalize relative z-10">{section}</span>
               </a>
             ))}
           </div>
 
-          <div className="flex items-center gap-3 md:gap-4">
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
+          {/* Action Buttons (Right Side) */}
+          <div className="flex-1 flex justify-end items-center gap-4">
+            <a href="/JahanviCV.pdf" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-2 px-5 py-2 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-widest text-[#ff4d6d] bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,77,109,0.2)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)] group/resume">
               Resume
-              <svg className="w-3 h-3 group-hover/resume:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+              <svg className="w-3.5 h-3.5 group-hover/resume:-translate-y-0.5 group-hover/resume:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
             </a>
-            <button className="md:hidden text-white p-2">
-              <svg className="w-6 h-6 drop-shadow-[0_0_8px_rgba(255,20,147,0.6)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <button className="lg:hidden text-white p-2 border border-white/10 rounded-full hover:bg-white/5 transition-colors">
+              <svg className="w-5 h-5 drop-shadow-[0_0_8px_rgba(255,20,147,0.6)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
           </div>
+
         </nav>
       </div>
 
@@ -283,7 +350,7 @@ function App() {
             <button className="px-8 py-3.5 border border-[#ff4d6d]/40 text-[#ffb3c6] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d]/10 hover:border-[#ff4d6d] hover:text-white transition duration-300 text-center">
               Contact Me
             </button>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-8 py-3.5 bg-[#1a0505]/40 backdrop-blur-md border border-white/10 text-gray-300 font-semibold tracking-wide rounded-full hover:bg-white/10 hover:border-white/30 hover:text-white shadow-[0_0_10px_rgba(0,0,0,0.5)] transition-all duration-300 group/hero-resume">
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 px-8 py-3 bg-[#1a0505]/60 backdrop-blur-md border border-[#ff4d6d]/30 text-[#ffb3c6] font-semibold tracking-wide rounded-full hover:bg-[#ff4d6d]/20 hover:border-[#ff4d6d] hover:text-white shadow-[0_0_10px_rgba(255,77,109,0.1)] hover:shadow-[0_0_20px_rgba(255,77,109,0.4)] transition-all duration-300 group/hero-resume">
               Download Resume
               <svg className="w-5 h-5 group-hover/hero-resume:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             </a>
@@ -297,12 +364,8 @@ function App() {
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
           className="relative z-10 w-full lg:w-1/2 mt-16 lg:mt-0 flex justify-center lg:justify-end items-center perspective-[1000px]"
         >
-          {/* Subtle Glow Behind Image */}
-          <div className="absolute top-1/2 left-1/2 lg:left-[60%] -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-gradient-to-tr from-[#ff4d6d]/15 to-[#800000]/15 blur-[80px] md:blur-[120px] rounded-full z-0 pointer-events-none"></div>
-          
-          {/* Image Container */}
-          <div className="relative w-[18rem] sm:w-[24rem] md:w-[32rem] lg:w-[42rem] z-10 transition-transform duration-700 ease-out hover:-translate-y-2 hover:scale-[1.02]">
-            <img src="/src/assets/avatar2.png" alt="Jahanvi Sharma" className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]" />
+          <div className="photo-container">
+            <img src="/src/assets/avatar.png" alt="Developer Avatar" className="profile-photo" />
           </div>
         </motion.div>
 
@@ -338,7 +401,7 @@ function App() {
               <div className="relative w-64 h-80 md:w-80 md:h-[400px] rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#1a0505] to-[#2a0f0f] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.6)] group-hover:shadow-[0_0_40px_rgba(255,77,109,0.3)] transition-all duration-700 ease-out transform group-hover:-rotate-3 group-hover:scale-105 animate-[float_6s_ease-in-out_infinite]">
                 {/* Subtle Inner Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#120606] via-transparent to-[#ff4d6d]/10 z-10 transition-opacity duration-500 group-hover:opacity-50"></div>
-                <img src="/src/assets/avatar.png" alt="Jahanvi Sharma" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 z-0 scale-105 group-hover:scale-110" />
+                <img src="/avatar2.png" alt="Jahanvi Sharma" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 z-0 scale-105 group-hover:scale-110" />
               </div>
 
 
